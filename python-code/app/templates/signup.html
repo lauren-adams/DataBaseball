@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Baseball Webapp</title>
+</head>
+
+<body>
+  <form method="GET" action="/">
+    <button>Home</button>
+  </form>
+  <form method="POST" action="/signup" style="display: flex; flex-direction: column; position: absolute; padding: 3px; left: 50%; top: 50%; gap: 5px; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);">
+    <input placeholder="Username" name="username" />
+    <input type="password" placeholder="Password" name="password" />
+    <input type="password" placeholder="Re-type your password" name="passwordConfirmation" />
+    <button type="submit">Sign Up</button>
+    {% if error %}
+    <p style="color: red; font-style: italic;">{{ error }}</p>
+    {% endif %}
+  </form>
+</body>
+</html>
