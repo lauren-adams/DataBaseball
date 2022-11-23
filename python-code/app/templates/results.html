@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title></title>
+</head>
+<form method="GET" action="/">
+    <button>Home</button>
+  </form>
+<h2>Results for {{division}} in {{year}}</h2>
+<body>
+<table>
+  <thead>
+    <tr>
+        <th>team name</th>
+        <th>year</th>
+        <th>Wins</th>
+    </tr>
+    </thead>
+    <tbody>
+     {% for row in records %}
+            <tr>
+              {% if row[0]  == team %}
+              <td><mark>{{row[0]}}</mark></td>
+              <td><mark>{{row[1]}}</mark></td>
+              <td><mark>{{row[3]}}</mark></td>
+              {%else%}
+               <td>{{row[0]}}</mark></td>
+                <td>{{row[1]}}</td>
+                <td>{{row[3]}}</td>
+              {% endif %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% if playoffs %}
+<h3>Playoff teams</h3>
+{% for row in playoffs %}
+            <tr>
+              {% if row[0]  == team %}
+              <ul><mark>{{row[0]}}</mark></ul>
+              {%else%}
+               <ul>{{row[0]}}</mark></ul>
+
+              {% endif %}
+            </tr>
+        {% endfor %}
+
+<h3>World Series Winner</h3>
+{% for row in winner %}
+            <tr>
+              {% if row[0]  == team %}
+              <td><mark>{{row[0]}}</mark></td>
+              {%else%}
+               <td>{{row[0]}}</mark></td>
+              {% endif %}
+            </tr>
+        {% endfor %}
+
+{% endif %}
+</body>
+</html>
