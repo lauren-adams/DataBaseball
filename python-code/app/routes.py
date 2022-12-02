@@ -7,6 +7,7 @@ from app.validator import validate_login, validate_signup
 import app.util.encrypt as encrypt
 from logging.config import dictConfig
 
+# configure logger to write to log file
 dictConfig(
     {
         "version": 1,
@@ -102,29 +103,29 @@ def logout():
    session.pop('username', None)
    return redirect(url_for('index'))
 
-#@app.route('/search', methods = ['GET'])
-#def search():
-#    args = request.args
-
-    # display login page
-#    if request.method == 'GET':
-#        error = args.get('error') if 'error' in args else None
-#        return render_template('search.html', error=error)
-
+'''
+function: search()
+return: rendered search page or the results
+displays teams and years and if submit is clicked it displays results to screen
+'''
 @app.route('/search', methods=['GET', 'POST'])
 def search():
+    # displays results
     if request.method == "POST":
+        # logs searches by user
         app.logger.info(session['username'] + " is searching " + request.form.get('year') + " " + request.form.get('team'))
         params = [request.form.get('year'), request.form.get('team')]
         results = search_teamYear(params)
+        # get division that matches the team and year
         div = getDiv(params)
         po = ""
         win = ""
+        # if in playoffs it displays playoff data
         if inPlayOffs(params) == 1:
             po = getPlayOffs(request.form.get('year'))
             win = getWinner(request.form.get('year'))
         return render_template("results.html", records=results, year=request.form.get('year'), team=request.form.get('team'), division= div, playoffs= po, winner= win)
-
+    # renders teams and years to the screen
     team = getTeams()
     year = getYears()
     return render_template('search.html', teams= team, years= year)
