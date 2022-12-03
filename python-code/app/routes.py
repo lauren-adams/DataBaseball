@@ -4,6 +4,7 @@ from app.daos.user_dao import save_user, getAllUsers
 from app.daos.search_dao import search_teamYear, getYears, getTeams, getDiv, getPlayOffs, inPlayOffs, getWinner
 from app.models.user import User
 from app.validator import validate_login, validate_signup
+from app.daos.query_dao import saveQuery, countQuery
 import app.util.encrypt as encrypt
 from logging.config import dictConfig
 
@@ -117,6 +118,7 @@ def search():
     if request.method == "POST":
         # logs searches by user
         app.logger.info(session['username'] + " is searching " + request.form.get('year') + " " + request.form.get('team'))
+        saveQuery(session['username'], request.form.get('year') + " " + request.form.get('team'))
         params = [request.form.get('year'), request.form.get('team')]
         results = search_teamYear(params)
         # get division that matches the team and year
@@ -152,4 +154,6 @@ def users():
 
     all_users = getAllUsers()
 
-    return render_template('users.html', users=all_users)
+    all_counts = countQuery(all_users)
+
+    return render_template('users.html', users=all_counts)

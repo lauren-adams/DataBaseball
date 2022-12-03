@@ -20,3 +20,9 @@ INSERT INTO user VALUES (
     'admin',
     '891a4ac3f0101a20236b7f3dbe519f0cd38413c4' -- sha1('nintendo')
 ) ON DUPLICATE KEY UPDATE password='891a4ac3f0101a20236b7f3dbe519f0cd38413c4';
+
+CREATE TABLE IF NOT EXISTS query (
+    username VARCHAR(16),
+    FOREIGN KEY(username) REFERENCES user(username),
+    query VARCHAR(256) NOT NULL
+)

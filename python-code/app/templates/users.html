@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <html>
 
+<style>
+  table, th, td {
+  border: 1px solid black;
+    border-collapse: collapse;
+  }
+  tr:nth-child(odd) {
+  background-color: #C4F5F9;
+  }
+  td {
+    text-align: center;
+  }
+  th, td {
+  padding: 5px;
+  }
+</style>
+
 <head>
   <title>Baseball Webapp</title>
 </head>
@@ -11,10 +27,12 @@
   <h2>Saved Users</h2>
 <table>
   <thead>
-        <th>Username </th>
+        <th style="background-color: #81D2D8">User</th>
+        <th style="background-color: #81D2D8">Total Searches</th>
         {% for user in users %}
           <tr>
             <td>{{user[0]}}</td>
+            <td>{{user[1]}}</td>
           </tr>
         {% endfor %}
   </thead>
