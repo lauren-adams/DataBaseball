@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Baseball Webapp</title>
+</head>
+
+<body>
+  {% if username %}
+  <p>You are logged in as: {{ username }}</p>
+    <form method="GET" action="/users">
+    <button>Users</button>
+  </form>
+  <form method="GET" action="/logout">
+    <button>Logout</button>
+  </form>
+  <form method="GET" action="/search">
+    <button>Search</button>
+  {% else %}
+  <form method="GET" action="/login">
+    <button>Login</button>
+  </form>
+  <form method="GET" action="/signup">
+    <button>Signup</button>
+  </form>
+  {% endif %}
+
+  <h1>About Us</h1>
+  <p>Wii Baseball is a powerful team of coders</p>
+  <p>Time to knock this project out of the park >:D</p>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Baseball Webapp</title>
+</head>
+<body>
+  <form method="GET" action="/">
+    <button>Home</button>
+  </form>
+  <h2>Saved Users</h2>
+<table>
+  <thead>
+        <th>Username </th>
+        {% for user in users %}
+          <tr>
+            <td>{{user[0]}}</td>
+          </tr>
+        {% endfor %}
+  </thead>
+</table>
+</body>
+</html>

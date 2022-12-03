@@ -1,6 +1,6 @@
 from flask import render_template, redirect, request, url_for, session
 from app import app
-from app.daos.user_dao import save_user
+from app.daos.user_dao import save_user, getAllUsers
 from app.daos.search_dao import search_teamYear, getYears, getTeams, getDiv, getPlayOffs, inPlayOffs, getWinner
 from app.models.user import User
 from app.validator import validate_login, validate_signup
@@ -41,6 +41,9 @@ def index():
         username = session['username']
     else:
         username = None
+    if username == "admin":
+        # renders admin only view
+        return render_template('index_admin.html', username=username)
     return render_template('index.html', username=username)
 
 @app.route('/login', methods = ['POST', 'GET'])
@@ -130,4 +133,23 @@ def search():
     year = getYears()
     return render_template('search.html', teams= team, years= year)
 
+'''
+function: users()
+return: rendered user page
+displays all saved users
+'''
+@app.route('/users', methods=['POST', 'GET'])
+def users():
+    args = request.args
+    # return to home
+    if request.method == 'POST':
+        error = args.get('error') if 'error' in args else None
+        return render_template('index_admin.html', error=error)
 
+    # handle displaying users logic
+    if request.method == 'GET':
+        app.logger.info(session['username'] + " is viewing user data")
+
+    all_users = getAllUsers()
+
+    return render_template('users.html', users=all_users)

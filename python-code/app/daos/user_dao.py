@@ -61,3 +61,30 @@ def find_user(username: str):
         if not user:
             return None
         return User(user[0], user[1])
+
+
+# gets all users
+def getAllUsers():
+    """
+    Gets all users from the database to be displayed
+
+    Parameters:
+        - none
+
+    Return: all User objects if users exists, else None
+    """
+    con = connect()
+    with con:
+        cur = con.cursor()
+
+        # set the database
+        cur.execute('USE wii_baseball')
+
+        # find all users
+        sql = 'SELECT * FROM user'
+        cur.execute(sql)
+
+        # extract the results
+        users = cur.fetchall()
+
+        return users
